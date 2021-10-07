@@ -4,7 +4,7 @@ estado = True
 intentos = 0
 puntos = 0
 
-numero = random.randrange(1,3)
+numero = random.randrange(1,101)
 
 get_nombre = input("Ingresa tu nombre: \n")
 
