@@ -16,7 +16,7 @@ while estado == True:
         get_intento = int(get_intento)
 
         if get_intento == 0:
-            print("Saliendo del programa..")
+            print(f"Saliendo del programa.. adios {get_nombre}")
             estado = False
         else:
             if numero == get_intento:
