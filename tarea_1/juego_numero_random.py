@@ -6,11 +6,11 @@ puntos = 0
 
 numero = random.randrange(1,101)
 
-get_nombre = input("Ingresa tu nombre: \n")
+get_nombre = input("Ingresa tu nombre: \n").replace(" ","")
 
 while estado == True:
     intentos = intentos + 1
-    get_intento = input("Ingresa un numero que crees que es (0 para salir)\n")
+    get_intento = input("Ingresa un numero que crees que es (0 para salir)\n").replace(" ","")
 
     if get_intento.isdigit():
         get_intento = int(get_intento)
@@ -43,7 +43,7 @@ while estado == True:
                         print("es mucho mayor")
 
     else:
-        print("no es numero")
+        print("no es numero, intenta nuevamente")
 
 
 
