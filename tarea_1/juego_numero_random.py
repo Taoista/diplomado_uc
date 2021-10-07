@@ -11,12 +11,14 @@ get_nombre = input("Ingresa tu nombre: \n")
 while estado == True:
     intentos = intentos + 1
     get_intento = input("Ingresa un numero que crees que es (0 para salir)\n")
+
     if get_intento.isdigit():
-        
+        get_intento = int(get_intento)
+
         if get_intento == 0:
+            print("Saliendo del programa..")
             estado = False
         else:
-            get_intento = int(get_intento)
             if numero == get_intento:
                 print(f'Felicitaciones {get_nombre} lo lograste en {intentos} intentos')
                 estado = False
