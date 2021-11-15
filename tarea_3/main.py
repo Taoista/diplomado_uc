@@ -110,7 +110,7 @@ def main():
             else:
                 estado_platillo = consultar_plato(key[1], platillos)
                 prepararReceta(estado_platillo, key[1],platillos,ingredientes)
-        elif key[0] == "reponer":
+        elif key[0].lower() == "reponer":
             if len(key) < 2:
                 print("No ingreso nada para Reponer u ocurrio un error")
             else:

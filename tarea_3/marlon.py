@@ -8,39 +8,36 @@ def cargar_diccionario_ingredientes():
     lineas = file.readlines()
     for i in lineas:
         item = i.replace("\n"," ").split(" ")
-        ingredientes.append({"item": item[0],"inventario" : float(item[1])})
+        ingredientes.append({"item": item[0],"Inventario" : float(item[1])})
     return ingredientes
 
 
 def cargar_diccionario_recetas():
-    comida = list()
+    lista = list()
 
-    for line in open("recetas.csv"):
+    for line in open ("recetas.csv"):
         item = line.split(" ")
         for i in item:
-            comida.append(i.split(","))
+            lista.append(i.split(","))
 
-    menu = []
+    men_u = []
 
-    cont = 0
-    while cont < len(comida):
-
-        d = {"plato": comida[cont][0]}
-        del comida[cont][0]
-        d["items"] = comida[cont]
-
-        menu.append(d)
-        cont += 1
-
-    return menu
-
-
+    for i in lista:
+        diccionary = {"plato": i [0]}
+        del i[0]
+        diccionary["Inventario"] = i
+        men_u.append(diccionary)
+    return men_u
 
 def buscar_en_menu(key, recetas):
+
     estado = False
 
-    for platito in recetas:
-        if platito["plato"].lower() == key.lower():
+
+    for i in recetas:
+
+        if i["plato"].lower() == key.lower():
+
             estado = True
 
     return estado
@@ -53,7 +50,7 @@ def disminuir_stock(items, ingredientes, key):
     for index in range(len(ingredientes)):
         for i in items:
             if ingredientes[index]["item"].lower() == i.lower():
-                if ingredientes[index]["inventario"] == 0:
+                if ingredientes[index]["Inventario"] == 0:
                     item = i
                     status = False
                     break
@@ -62,36 +59,35 @@ def disminuir_stock(items, ingredientes, key):
         for index in range(len(ingredientes)):
             for i in items:
                 if ingredientes[index]["item"].lower() == i.lower():
-                    ingredientes[index]["inventario"] -= 1
+                    ingredientes[index]["Inventario"] -= 1
 
     else:
          print(f"* No se puede hacer {key} porque falta { item } *")
 
-    print_stock(ingredientes)
+    printStock(ingredientes)
 
 
-def preparar_platillo(estado_platillo, key, recetas,ingredientes):
+
+def prepararReceta(estado_platillo, key, recetas,ingredientes):
     if estado_platillo == False:
         print(f"* Lo sentimos pero no preparamos {key} *")
     else:
-        cont = 0
-        while cont < len(recetas):
-            if recetas[cont]["plato"].lower() == key.lower():
-                disminuir_stock(recetas[cont]["items"], ingredientes, key)
-            cont +=1
+        for i in recetas:
+            if i["plato"].lower() == key.lower():
+                disminuir_stock(i["Inventario"], ingredientes, key)
 
 
-def reponer_inventario(keys, ingredientes):
+def reponerIngredientes(keys, ingredientes):
     for i in keys:
         for x in ingredientes:
             if i.lower() == x["item"].lower():
-                x["inventario"] += 1
-
-    print_stock(ingredientes)
+                x["Inventario"] += 1
 
 
-def print_stock(ingredientes):
-    print(pd.DataFrame(ingredientes, columns=["item", "inventario"]))
+    printStock(ingredientes)
+
+def printStock(ingredientes):
+    print(pd.DataFrame(ingredientes, columns=["item", "Inventario"]))
 
 def main():
     ingredientes = cargar_diccionario_ingredientes()
@@ -108,12 +104,12 @@ def main():
                 print("No ingreso el platillo a preparar u ocurrio un error")
             else:
                 estado_platillo = buscar_en_menu(key[1], recetas)
-                preparar_platillo(estado_platillo, key[1],recetas,ingredientes)
+                prepararReceta(estado_platillo, key[1],recetas,ingredientes)
         elif key[0].lower() == "reponer":
             if len(key) < 2:
                 print("No ingreso nada para Reponer u ocurrio un error")
             else:
-                reponer_inventario(key,ingredientes)
+                reponerIngredientes(key,ingredientes)
         else:
             print("no se reconoce el comando, intente nuevamente \n")
 
