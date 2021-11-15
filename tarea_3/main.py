@@ -30,6 +30,7 @@ def cargar_diccionario_recetas():
         minuta_final.append(d)
         cont += 1
 
+    return minuta_final
 
 
 def consultar_plato(key, platillos):
