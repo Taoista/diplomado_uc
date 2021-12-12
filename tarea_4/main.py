@@ -1,35 +1,49 @@
+import csv
+import pandas as pd
+
 NOMBRE_ARCHIVO = "ley-de-presupuestos-inicial-y-vigentenivel-partidaa--mayo-2021.csv"
 
-## Partidas debe ser un conjunto con pares id_partida y nombre_partida, los pares son únicos. 
-partidas = set()
 
+
+
+
+## Partidas debe ser un conjunto con pares id_partida y nombre_partida, los pares son únicos. 
 def set():
     data = list()
-    with open(NOMBRE_ARCHIVO, "r", encoding="utf-8") as lineas:
-        next(lineas)
-        for linea in lineas:
-            data = linea.strip("\n").split(";")[0].split(",")
-            id_partida = data[4]
-            nombre_partida = data[5]
-            if int(id_partida) % 2 == 0:
-                for i in data:
-                    if i["id_partida"] == int(id_partida):
-                        pass
-                    else:
-                        data.append({"id_partida": int(id_partida), "nombre_partida": nombre_partida})
-            
+    with open(NOMBRE_ARCHIVO, newline='',  encoding="utf-8") as File:  
+        search = False
+        reader = csv.reader(File)
+        for row in reader:
+            data.append({"id_partida": row[4], "nombre_partida" : row[5]})
 
-    print(data)
+    filtro = list()
 
-set()
+    for element in data:
+        if element not in filtro:
+            filtro.append(element)
+
+    return filtro
+
+partidas = set()
+
+
 
 
 ## Datos partidas debe ser un diccionario indexado por el ID de cada partida, y que contenga los datos
 ## de todos los subtítulos de esa partida. Es decir, la key es id_partida y el value los subtítulos de esa partida.
+def dict():
+    data = list()
+    with open(NOMBRE_ARCHIVO, newline='',  encoding="utf-8") as File:  
+        search = False
+        reader = csv.reader(File)
+        for row in reader:
+            data.append({"id_subtitulo": row[6], "subtitulo":row[7], "monto_inicial":row[8], "monto_final":row[9]})
+
+    return data
+
 datos_partidas = dict()
 
-def dict():
-    pass
+
 
     
 
@@ -99,12 +113,10 @@ def cargar_datos(archivo, partidas, datos_partidas):
 ##    un diccionario con los datos de los subtítulos de cada partida y un parámetro de conversión de dólares a pesos.
 ##    
 def montos_por_partida(partidas, datos_partidas, usd_a_clp):
-    print(partidas)
-    # pass
-    ## COMPLETAR AQUI
-    ##
-    ##
-    ##
+    # for i in partidas:
+    #     print(i)
+    for i in datos_partidas:
+        print(i)
 
 
 
