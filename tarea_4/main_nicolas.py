@@ -1,6 +1,7 @@
 import csv
-import matplotlib.pyplot as plt
-# import pandas as pd
+from reportlab.pdfgen import canvas
+import os
+import datetime 
 
 NOMBRE_ARCHIVO = "ley-de-presupuestos-inicial-y-vigentenivel-partidaa--mayo-2021.csv"
 
@@ -202,7 +203,9 @@ def funcion_personalizada(partidas, datos_partidas, usd_a_clp):
         if element not in data_filter:
             data_filter.append(element)
 
-    list_grafico = list()
+    lista_data = list()
+
+    total = 0
 
     for i in data_filter:
         suma = 0
@@ -214,33 +217,54 @@ def funcion_personalizada(partidas, datos_partidas, usd_a_clp):
                     precio = x["monto_inicial"]
 
                 suma += precio
-        list_grafico.append({"id_partida": i["id_partida"], "nombre_partida":i["nombre_partida"], "suma":suma})
+        total += suma
+        porcentaje = float(suma / total)
+        demo = "{:.4f}".format(porcentaje)
+        lista_data.append({"id_partida": i["id_partida"], "nombre_partida":i["nombre_partida"], "suma":suma, "porcentaje" :demo})
 
 
+    for i in lista_data:
+        print(i)
     
     lbl = list()
     precios = list()
 
-    for i in list_grafico:
-        lbl.append(i["nombre_partida"])
-        precios.append(i["suma"])
+    c = canvas.Canvas("informe.pdf")
 
-    # fig, ax = plt.subplots()
-    # ax.pie(precios, labels=lbl)
-    # plt.show()
+    date_object = str(datetime.date.today())
 
-    plt.barh(lbl, precios)
-    plt.ylabel('Nombre Partidas')
-    
-    ## Legenda en el eje x
-    plt.xlabel('Precios')
-    
-    ## Título de Gráfica
-    plt.title('Detalle Precios CLP Nombre partidas')
-    
-    ## Mostramos Gráfica
-    plt.show()
-    
+    c.drawString(50, 800, "Potificie Universidad Catolica de Chile")
+    c.drawString(50, 780, "Diplomado Python Ciencias de Datos")
+    c.drawString(50, 760, date_object)
+
+    c.drawString(220, 750, "Analisis Porcentaje Participacion")
+    c.drawString(50, 730, "-"*130)
+
+    c.drawString(50, 710, "id")
+    c.drawString(70, 710, "nombre_partida")
+    c.drawString(350, 710, "total")
+    c.drawString(450, 710, "% Part.")
+
+    c.drawString(50, 50, "Nicolas Otarola Urrutia")
+
+    c.drawString(50, 700, "-"*130)
+
+    columna = 670
+    fila1 = 50
+    fila2 = 70
+    fila3 = 350
+    fila4 = 450
+    c.setFont("Helvetica", 7)
+    for i in lista_data:
+        c.drawString(fila1, columna, i["id_partida"])
+        c.drawString(fila2, columna, i["nombre_partida"])
+        c.drawString(fila3, columna, str(i["suma"]))
+        c.drawString(fila4, columna, i["porcentaje"])
+        columna -= 15
+
+
+    c.save()
+    os.system("informe.pdf")
 
 
 
