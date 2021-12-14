@@ -1,0 +1,11 @@
+from urllib.request import urlopen
+import xlsxwriter
+
+Hola, agregue estos modulos para el uso, se deben instalar antes de ejecutar
+
+saludos.
+
+pip install urllib
+pip install xlsxwriter
+
+
