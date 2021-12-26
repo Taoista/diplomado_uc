@@ -13,7 +13,7 @@ class Automovil:
         
     def avanzar(timepos):
         self.kilometraje += self.velocidad * tiempo/3600
-
+ 
     def acelerar(tiempo):
         self.aceleracion = tiempo * 0.5
         self.velocidad = self.velocidad += self.aceleracion * tiempo * 3.6
@@ -28,13 +28,14 @@ class Automovil:
         if self.velocidad <= 0:
             self.velocidad = 0
         self.avanzar(tiempo)
-
+        self.aceleracion = 0
     
     def obtener_kilometraje(tiempo):
-        pass
+        return self.kilometraje
     
     def reemplazar_rueda(tiempo):
-        pass
+        for rueda in self.ruedas:
+            
 
 ###### FIN PUNTO 1 ######
 
