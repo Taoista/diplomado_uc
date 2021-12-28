@@ -13,10 +13,10 @@ class Automovil:
         
     def avanzar(timepos):
         self.kilometraje += self.velocidad * tiempo/3600
- 
+  
     def acelerar(tiempo):
         self.aceleracion = tiempo * 0.5
-        self.velocidad = self.velocidad += self.aceleracion * tiempo * 3.6
+        self.velocidad += self.aceleracion * tiempo * 3.6
         self.avanzar(tiempo)
         self.aceleracion = 0
 
@@ -30,20 +30,32 @@ class Automovil:
         self.avanzar(tiempo)
         self.aceleracion = 0
     
-    def obtener_kilometraje(tiempo):
+    def obtener_kilometraje():
         return self.kilometraje
     
-    def reemplazar_rueda(tiempo):
-        for rueda in self.ruedas:
-            
+    def reemplazar_rueda():
+        # for rueda in self.ruedas:
+        self.ruedas.remove(min(self.ruedas))
+        nueva_rueda = Rueda()
+        self.ruedas.append(nueva_rueda)
 
 ###### FIN PUNTO 1 ######
 
 
 ###### INICIO PUNTO 2 ######
 ### Rellenar Clase Moto ###
-class Moto: 
-    pass
+class Moto(Automovil): 
+    def __init__(self, cilindrada):
+        self.cilindrada = cilindrada
+
+    def acelerar(tiempo):
+        self.acelerar(tiempo)
+        for rueda in self.ruedas:
+            rueda.gastar()
+
+    def frenar(tiempo):
+        pass
+
 
     def __str__(self):
         return f"Moto del año {self.ano}."
