@@ -45,7 +45,8 @@ class Automovil:
 ###### INICIO PUNTO 2 ######
 ### Rellenar Clase Moto ###
 class Moto(Automovil): 
-    def __init__(self, cilindrada):
+    def __init__(self, kilometraje, ano, ruedas, aceleracion, velocidad, cilindrada):
+        super().__init__(kilometraje, ano, ruedas, aceleracion, velocidad)
         self.cilindrada = cilindrada
 
     def acelerar(tiempo):
@@ -54,7 +55,10 @@ class Moto(Automovil):
             rueda.gastar()
 
     def frenar(tiempo):
-        pass
+        self.frenar(tiempo)
+        for rueda in self.ruedas:
+            rueda.gastar("frenar")
+
 
 
     def __str__(self):
@@ -64,8 +68,25 @@ class Moto(Automovil):
 
 ###### INICIO PUNTO 3 ######
 ### Rellenar Clase Camión ###
-class Camion:
-    pass
+class Camion(Automovil):
+    def __init__(self, kilometraje, ano, ruedas, aceleracion, velocidad, carga):
+        super().__init__(kilometraje, ano, ruedas, aceleracion, velocidad)
+        self.carga = carga
+
+        for i in range(6):
+            nueva_rueda = Rueda()
+            self.ruedas.append(nueva_rueda)
+
+        def acelerar(tiempo):
+            self.acelerar(tiempo)
+        
+        for i in self.ruedas:
+            i.gastar("acelerar")
+
+        def frenar(tiempo):
+            self.frenar(tiempo)
+            for i in self.ruedas:
+                i.gastar("frenar")
 
     def __str__(self):
         return f"Camión del año {self.ano}."
@@ -125,12 +146,18 @@ def accion(vehiculo, opcion):
 
 
 if __name__ == "__main__":
-
     ###### INICIO PUNTO 4.1 ######
     ### Aca deben instanciar los vehiculos indicados
     ### en el enunciado y agregarlos a la lista vehiculos
+
+
+    motito = Moto(123, 1998,[],30, 80, 120)
+    camioncito = Camion(1234, 1988,[], 20, 60, 167)
+
     vehiculos = []
 
+    vehiculos.append(motito)
+    vehiculos.append(camioncito)
 
     ###### FIN PUNTO 4.1 ######
 
