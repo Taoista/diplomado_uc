@@ -1,3 +1,4 @@
+from operator import attrgetter
 import parametros as p
 import random
 
@@ -13,13 +14,14 @@ class Automovil:
         
     def avanzar(self, tiempo):
         self.__kilometraje += self.velocidad * tiempo/3600
-  
+        print(f"Se ha avanzado {tiempo} segundos a una velocidad de {self.__kilometraje} km/h.")
+
     def acelerar(self,tiempo):
         self.aceleracion = tiempo * 0.5
         self.velocidad += self.aceleracion * tiempo * 3.6
         self.avanzar(tiempo)
         self.aceleracion = 0
-
+        print(f"Se ha acelerado por {tiempo} segundos llegando a una velocidad de {self.velocidad} km/h.")
 
     def frenar(self, tiempo):
         self.aceleracion = self.aceleracion - (tiempo * 0.5)
@@ -29,15 +31,20 @@ class Automovil:
             self.velocidad = 0
         self.avanzar(tiempo)
         self.aceleracion = 0
+        print(f"“Se ha frenado por {tiempo} segundos llegando a una velocidad de {self.velocidad} km/h.")
     
     def obtener_kilometraje(self):
         return self.__kilometraje
     
     def reemplazar_rueda(self):
         # for rueda in self.ruedas:
-        self.ruedas.remove(min(self.ruedas))
+
+        self.ruedas.remove(min(self.ruedas, key = attrgetter("resistencia_total")))
+
         nueva_rueda = Rueda()
         self.ruedas.append(nueva_rueda)
+        
+        print("Se ha reemplazado una rueda con éxito.")
 
     def __str__(self):
         return f"Fecha vehiculo => {self.ano}, Velocidad => {self.velocidad}, Kilometraje => {self.obtener_kilometraje()}"
@@ -52,10 +59,11 @@ class Moto(Automovil):
         super().__init__(kilometraje, ano)
         self.cilindrada = cilindrada
         for i in range(2):
-            self.ruedas.append(Rueda())
+            dr = Rueda()
+            self.ruedas.append(dr)
 
     def acelerar(self, tiempo):
-        self.acelerar(tiempo)
+        super().acelerar(tiempo)
         for rueda in self.ruedas:
             rueda.gastar("acelerar")
 
@@ -81,13 +89,13 @@ class Camion(Automovil):
             self.ruedas.append(nueva_rueda)
 
         def acelerar(tiempo):
-            self.acelerar(tiempo)
+            super().acelerar(tiempo)
         
         for i in self.ruedas:
             i.gastar("acelerar")
 
         def frenar(tiempo):
-            self.frenar(tiempo)
+            super().frenar(tiempo)
             for i in self.ruedas:
                 i.gastar("frenar")
 
@@ -148,6 +156,8 @@ def accion(vehiculo, opcion):
         vehiculo.reemplazar_rueda()
     elif opcion == 6: #Mostrar Estado
         print(vehiculo)
+        for i in vehiculo.ruedas:
+            print(i.estado)
 ###### FIN PUNTO 4.2 ######
 
 
