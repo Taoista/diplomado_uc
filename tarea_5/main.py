@@ -4,40 +4,43 @@ import random
 ###### INICIO PUNTO 1 ######
 ### Rellenar Clase Automóvil ###
 class Automovil:
-    def __init__(self, kilometraje, ano, ruedas, aceleracion, velocidad):
-        self.kilometraje = kilometraje
+    def __init__(self, kilometraje, ano):
+        self.__kilometraje = kilometraje
         self.ano = ano
-        self.ruedas = ruedas
-        self.aceleracion = aceleracion
-        self.velocidad = velocidad
+        self.ruedas = []
+        self.aceleracion = 0
+        self.velocidad = 0
         
-    def avanzar(timepos):
-        self.kilometraje += self.velocidad * tiempo/3600
+    def avanzar(self, tiempo):
+        self.__kilometraje += self.velocidad * tiempo/3600
   
-    def acelerar(tiempo):
+    def acelerar(self,tiempo):
         self.aceleracion = tiempo * 0.5
         self.velocidad += self.aceleracion * tiempo * 3.6
         self.avanzar(tiempo)
         self.aceleracion = 0
 
 
-    def frenar(tiempo):
-        self.aceleracion = tiempo * 0.5
-        self.velocidad = self.aceleracion
-        self.velocidad += aceleracion * tiempo * 3.6
+    def frenar(self, tiempo):
+        self.aceleracion = self.aceleracion - (tiempo * 0.5)
+        
+        self.velocidad += self.aceleracion * tiempo * 3.6
         if self.velocidad <= 0:
             self.velocidad = 0
         self.avanzar(tiempo)
         self.aceleracion = 0
     
-    def obtener_kilometraje():
-        return self.kilometraje
+    def obtener_kilometraje(self):
+        return self.__kilometraje
     
-    def reemplazar_rueda():
+    def reemplazar_rueda(self):
         # for rueda in self.ruedas:
         self.ruedas.remove(min(self.ruedas))
         nueva_rueda = Rueda()
         self.ruedas.append(nueva_rueda)
+
+    def __str__(self):
+        return f"Fecha vehiculo => {self.ano}, Velocidad => {self.velocidad}, Kilometraje => {self.obtener_kilometraje()}"
 
 ###### FIN PUNTO 1 ######
 
@@ -45,21 +48,21 @@ class Automovil:
 ###### INICIO PUNTO 2 ######
 ### Rellenar Clase Moto ###
 class Moto(Automovil): 
-    def __init__(self, kilometraje, ano, ruedas, aceleracion, velocidad, cilindrada):
-        super().__init__(kilometraje, ano, ruedas, aceleracion, velocidad)
+    def __init__(self, kilometraje, ano, cilindrada):
+        super().__init__(kilometraje, ano)
         self.cilindrada = cilindrada
+        for i in range(2):
+            self.ruedas.append(Rueda())
 
-    def acelerar(tiempo):
+    def acelerar(self, tiempo):
         self.acelerar(tiempo)
         for rueda in self.ruedas:
-            rueda.gastar()
+            rueda.gastar("acelerar")
 
-    def frenar(tiempo):
+    def frenar(self,tiempo):
         self.frenar(tiempo)
         for rueda in self.ruedas:
             rueda.gastar("frenar")
-
-
 
     def __str__(self):
         return f"Moto del año {self.ano}."
@@ -69,8 +72,8 @@ class Moto(Automovil):
 ###### INICIO PUNTO 3 ######
 ### Rellenar Clase Camión ###
 class Camion(Automovil):
-    def __init__(self, kilometraje, ano, ruedas, aceleracion, velocidad, carga):
-        super().__init__(kilometraje, ano, ruedas, aceleracion, velocidad)
+    def __init__(self, kilometraje, ano, carga):
+        super().__init__(kilometraje, ano)
         self.carga = carga
 
         for i in range(6):
@@ -133,15 +136,18 @@ def seleccionar():
 ### Se debe completar cada opción según lo indicado en el enunciado ###
 def accion(vehiculo, opcion):
     if opcion == 2: #Acelerar
-        pass
+        tiempo = int(input("Seleccione el timepo prara acelerar"))
+        vehiculo.acelerar(tiempo)
     elif opcion == 3: #Frenar
-        pass
+        tiempo = int(input("Seleccione el timepo prara Frenar"))
+        vehiculo.frenar(tiempo)
     elif opcion == 4: #Avanzar
-        pass
+        tiempo = int(input("Seleccione el timepo prara Avanzar"))
+        vehiculo.avanzar(tiempo)
     elif opcion == 5: #Cambiar Rueda
-        pass
+        vehiculo.reemplazar_rueda()
     elif opcion == 6: #Mostrar Estado
-        pass 
+        print(vehiculo)
 ###### FIN PUNTO 4.2 ######
 
 
@@ -151,8 +157,8 @@ if __name__ == "__main__":
     ### en el enunciado y agregarlos a la lista vehiculos
 
 
-    motito = Moto(123, 1998,[],30, 80, 120)
-    camioncito = Camion(1234, 1988,[], 20, 60, 167)
+    motito = Moto(123,1080, 4)
+    camioncito = Camion(1234, 1980, 1500)
 
     vehiculos = []
 
