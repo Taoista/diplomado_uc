@@ -1,6 +1,6 @@
 ##############################################################
 from random import randint, choice
-import random #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+import random
 
 ## Si necesita agregar imports, debe agregarlos aquí arriba ##
 
@@ -9,47 +9,42 @@ class Plato:
     def __init__(self, nombre):
         self.nombre = nombre
         self.calidad = 0
-
+ 
 ### FIN PARTE 1.1 ###
 
 ### INICIO PARTE 1.2 ###
 class Bebestible(Plato):
     def __init__(self,nombre):
-        super().__init__(nombre):
-        # CAMBIAR ESTO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        super().__init__(nombre)
         self.nombre = nombre
-        self.switch_tamano = ["pequeno", "mediano", "grande"]
-        self.tamano = random.choice(self.switch_tamano)
+
+        switch_tamano = ["pequeno", "mediano", "grande"]
+        self.tamano = random.choice(switch_tamano)
         self.dificultad = 0
 
         if self.tamano == "pequeno":
             self.dificultad = 3
-        else if self.tamano == "mediano":
+        elif self.tamano == "mediano":
             self.dificultad = 6
-        else self.tamano == "grande":
+        elif self.tamano == "grande":
             self.dificultad = 9
-
-        self.calidad = random.randint(3, 8)
-
+            
     def __str__(self): 
-    # cambiar este >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         return f" nombre => {self.nombre}, tipo Bebestible, calidad => {self.calidad}, dificultad => {self.dificultad} "
 
 
 ### FIN PARTE 1.2 ###
 
 ### INICIO PARTE 1.3 ###
-class Comestible:
+class Comestible(Plato):
     def __init__(self, nombre):
-        super().__init__(nombre):
+        super().__init__(nombre)
         self.dificultad = random.randint(1, 10)
         self.calidad = random.randint(5, 10)
 
     def __str__(self): 
         # cambiar este >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         return f" nombre => {self.nombre}, tipo Comestible, calidad => {self.calidad}, dificultad => {self.dificultad} "
-
-
 
 ### FIN PARTE 1.3 ###
 
