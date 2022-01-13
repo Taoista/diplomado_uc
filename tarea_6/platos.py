@@ -31,7 +31,7 @@ class Bebestible(Plato):
 
         self.calidad = random.randint(3, 8)
 
-    self __str__(self): 
+    def __str__(self): 
     # cambiar este >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         return f" nombre => {self.nombre}, tipo Bebestible, calidad => {self.calidad}, dificultad => {self.dificultad} "
 

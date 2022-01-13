@@ -13,7 +13,7 @@ class Persona:
 
 ### INICIO PARTE 2.2 ###
 class Repartidor(Persona):
-    def __init__(self)
+    def __init__(self,nombre)
         super().__init__(nombre)
         self.tiempo_entrega = random.randint(20, 30)
         self.energia = random.randint(75, 100)
