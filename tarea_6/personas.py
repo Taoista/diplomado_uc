@@ -19,6 +19,7 @@ class Repartidor(Persona):
         self.energia = random.randint(75, 100)
     
     def repartir(pedido):
+        factor_tamano = 
         pass
 
 ### FIN PARTE 2.2 ###
