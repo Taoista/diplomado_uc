@@ -28,7 +28,7 @@ class Repartidor(Persona):
             factor_tamano = 15
             self.energia = self.energia - factor_tamano
 
-        fac_vel = 0
+        fac_vel = 0 
         if len(pedido) <=2:
             fac_vel = 1.25
             self.tiempo_entrega = self.tiempo_entrega * fac_vel
@@ -36,7 +36,7 @@ class Repartidor(Persona):
             tiempo_entrega = 0.85
             self.tiempo_entrega = self.tiempo_entrega * fac_vel
 
-        print(f"El repartidor {self.nombre} se ha demorado {self.tiempo_entrega} y perdiendo {self.energia} ")
+        print(f"El repartidor => {self.nombre} se ha demorado => {self.tiempo_entrega} y perdiendo {self.energia} ")
 
 
 ### FIN PARTE 2.2 ###
@@ -51,32 +51,36 @@ class Cocinero(Persona):
     def cocinar(informacion_plato):
         for i in informacion_plato.values():
             if i[1] == "Bebestible":
-                new_bbstible = Bebestible(i[0])
-                if new_bbstible.dificultad == 3:
-                    new_bbstible.energia = new_bbstible.energia -5
+                classBebestible = Bebestible
+                nw_bbs_class = Bebestible(i[0])
+                if nw_bbs_class.dificultad == 3:
+                    nw_bbs_class.energia = nw_bbs_class.energia -5
 
-                if new_bbstible.dificultad == 6:
-                    new_bbstible.energia = new_bbstible.energia -8
+                if nw_bbs_class.dificultad == 6:
+                    nw_bbs_class.energia = nw_bbs_class.energia -8
                 
-                if new_bbstible.dificultad == 6:
-                    new_bbstible.energia = new_bbstible.energia -10
+                if nw_bbs_class.dificultad == 6:
+                    nw_bbs_class.energia = nw_bbs_class.energia -10
 
-                if new_bbstible.dificultad > self.habilidad:
-                    new_bbstible.calidad = new_bbstible.calidad * 0.7
+                if nw_bbs_class.dificultad > self.habilidad:
+                    nw_bbs_class.calidad = nw_bbs_class.calidad * 0.7
                 else:
-                    new_bbstible.calidad = new_bbstible.calidad * 1.5
-
+                    nw_bbs_class.calidad = nw_bbs_class.calidad * 1.5
 
             if i[1] == "Comestible":
                 new_comest = Comestible(i[0])
                 new_comest.energia = new_comest.energia - 15
-            
-        print(f"El cocinero {self.nombre} ha cocinado {new_bbstible.nombre} perdiendo {self.energia} de energía")
-        print(new_bbstible)
+
+
+        print(f"El cocinero => {self.nombre} ha cocinado => {nw_bbs_class.nombre} perdiendo => {self.energia} de energía")
+        print(nw_bbs_class)
         print(new_comest)
         
-        return  new_bbstible is None: new_bbstible :  new_comest
-
+        if i[1] == "Bebestible":
+            return new_bbs_class
+        
+        if i[1] == "Comestible":
+            return new_comest
 
 
 ### FIN PARTE 2.3 ###
@@ -90,19 +94,20 @@ class Cliente(Persona):
     def recibir_pedido(pedido, demora):
         calificacion = 10
 
-        if (len(platos_preferidos) > len(pedido)) OR demora > 20:
+        if (len(platos_preferidos) > len(pedido)) OR demora >= 20:
             calificacion = calificacion / 2
-        
+
         for i in pedido:
-            if i.calidad => 11:
+            if i.calidad >= 11:
                 calificacion = calificacion + 1.5
             elif i.calidad <= 8: 
                 calificacion = calificacion - 3
             else:
                 pass
         
-        print(f"El cliente {self.nombre} ha recibido su pedido y le puso la calificación {calificacion}")
+        print(f"El cliente => {self.nombre} ha recibido su pedido y le puso la calificación => {calificacion}")
 
+        return calificacion
     
 
 

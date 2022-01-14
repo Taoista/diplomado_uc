@@ -43,7 +43,6 @@ class Comestible(Plato):
         self.calidad = random.randint(5, 10)
 
     def __str__(self): 
-        # cambiar este >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         return f" nombre => {self.nombre}, tipo Comestible, calidad => {self.calidad}, dificultad => {self.dificultad} "
 
 ### FIN PARTE 1.3 ###
