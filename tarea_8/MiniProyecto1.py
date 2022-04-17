@@ -56,7 +56,7 @@ def main():
     #### descomentar para ejecutar pero ya los contiene
     # mydb.commit()
 
-    sql_search = "SELECT * FROM Aeropuertos WHERE elevation_ft > 5000"
+    sql_search = "SELECT name, type, municipality, elevation_ft FROM Aeropuertos WHERE elevation_ft > 5000"
 
     cursor.execute(sql_search)
     rows = cursor.fetchall()
