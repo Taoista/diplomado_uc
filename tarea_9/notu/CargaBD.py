@@ -227,20 +227,20 @@ def main():
                 except:
                     print(conector())
             elif select == 3:
-                data = resultados(1)
-                for i in data:
-                    print(i)
-                print("------ TERMINO -------")
+                datos = resultados(1)
+                df = pd.DataFrame(datos, columns = ["Pelicula", "Agno", "Directo", "Puntaje"])
+                print(df.loc[:10])
+                print("------ TERMINO LOC DB-------")
             elif select == 4:
                 data = resultados(2)
-                for i in data:
-                    print(i)
-                print("------ TERMINO -------")
+                df = pd.DataFrame(datas, columns = ["Pelicula", "Agno", "Directo", "Puntaje"])
+                print(df.iloc[20:50])
+                print("------ TERMINO ILOC DF -------")
             elif select == 5:
                 data = resultados(3)
                 for i in data:
                     print(i)
-                print("------ TERMINO -------")
+                print("------ TERMINO FOR-------")
             elif select == 0:
                 print("Selecionaste salir del programa")
                 inicio = False
