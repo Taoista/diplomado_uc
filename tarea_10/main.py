@@ -46,7 +46,7 @@ def main():
         pass
     ##### obtener solo los feriados que incluyen el texto "Santo" en el nombre
     for i in colect.find({
-        
+        "$regex":
     }):
         print(i)
 
