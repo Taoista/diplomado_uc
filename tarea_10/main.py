@@ -13,25 +13,16 @@ def main():
     mydb = client["mongo"]
     colect = mydb["feriados2020"]
     # print(mydb.list_collection_names())
-    colect_all = mydb["feriadosAll"]
 
     #feriados_2022
     response = requests.get("https://apis.digital.gob.cl/fl/feriados/2020",headers={
         "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
     })
-
-    response_all = requests.get("https://apis.digital.gob.cl/fl/feriados",headers={
-        "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
-    })
-
-    data = response.json()
-    data_all = response_all.json()
+    # data = response.json()
     ##### 
-    ##### inserta todos los datos del 2022   
+    ##### inserta todos los datos del 2020  
     #####
     # colect.insert_many(data)
-    # colect_all.insert_many(data_all)
-    # print("insert completo")
     ##### 
     ##### siguientes consultas
     #####
@@ -56,9 +47,19 @@ def main():
         # print(f"El día de {i['nombre']} es un feriado de tipo {i['tipo']} y se celebra el {i['fecha']}")
         pass
     ####  obtener las leyes involucradas en el feriado del Plebiscito 
-    for i in response_all.find({"comentarios":{"$regex":"\w*plebi\w*"}},{"_id":0}):
-        print(i)
-        pass
+    print(" ===== Leyes relacionadas con el Plebiscito de Abril =====")
+    print("Las leyes involucradas en el día del Plebiscito Constitucional son las siguientes:")
+    # for i in colect.find({"leyes.nombre":"Ley 2.977"},{"_id":0}):
+
+    print("===== Leyes relacionadas con el Plebiscito de Abril ====")
+    print("Las leyes involucradas en el día del Plebiscito Constitucional son las siguientes:")
+    for i in colect.find({"$or":[{"leyes.nombre":"Ley 2.977"}, {"leyes.nombre":"Ley 18.700"}]},{}):
+        print(i["fecha"])
+        for x in i["leyes"]:
+            print(f"La ley involucrada en el Plebiscito es { x['nombre'] } revisar en { x['url'] }")
+
+
+        print("================")
 
 
     print("______terminando________")
