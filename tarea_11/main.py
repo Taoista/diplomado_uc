@@ -11,6 +11,7 @@ from sklearn.decomposition import PCA
 # * limit_credito => df_bill_atm
 # * nivel de educacion => df_card_pay_atm
 #  * sexo => df_bill_atm
-#  * nivel_educacion => df_card_pay_atm
 # * state_civil => df_card_paynext
 print("inicando")
+#ver columnaas
+print(df.columns.tolist())
